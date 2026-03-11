@@ -1,0 +1,11 @@
+parameters:
+    level: 8
+    paths:
+        - src
+        - tests
+    excludePaths:
+        - vendor
+    tmpDir: .phpstan
+    ignoreErrors:
+        - '#has invalid return type Filament\\Forms\\Components\\Component#'
+        - '#has invalid return type Filament\\Infolists\\Components\\Component#'

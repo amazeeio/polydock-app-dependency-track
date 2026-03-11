@@ -1,0 +1,52 @@
+{
+    "name": "amazeeio/polydock-app-dependency-track",
+    "description": "Polydock App - Dependency Track",
+    "type": "library",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Amazeeio\\PolydockAppDependencyTrack\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "require": {
+        "freedomtech-hosting/polydock-app": "^0.0.31",
+        "freedomtech-hosting/polydock-app-amazeeio-generic": "^0.1"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^10.0",
+        "mockery/mockery": "^1.6.12",
+        "orchestra/testbench": "*",
+        "laravel/pint": "^1.27.1",
+        "phpstan/phpstan": "^1.10",
+        "phpstan/extension-installer": "*",
+        "phpstan/phpstan-mockery": "^1.1"
+    },
+    "config": {
+        "allow-plugins": {
+            "phpstan/extension-installer": true
+        }
+    },
+    "scripts": {
+        "test": [
+            "@phpstan",
+            "@phpunit"
+        ],
+        "phpunit": "./vendor/bin/phpunit",
+        "phpstan": "./vendor/bin/phpstan analyze --memory-limit=1G",
+        "phpstan:src": "./vendor/bin/phpstan analyze src --memory-limit=1G",
+        "pint": "./vendor/bin/pint",
+        "format": "@pint",
+        "check": [
+            "@phpstan",
+            "@phpunit",
+            "@pint --test"
+        ]
+    }
+}
