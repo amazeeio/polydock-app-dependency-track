@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Amazeeio\PolydockAppDependencyTrack;
 
+use Amazeeio\PolydockAppDependencyTrack\Traits\Claim\ClaimAppInstanceTrait;
 use Amazeeio\PolydockAppDependencyTrack\Traits\Create\PostCreateAppInstanceTrait;
 use Amazeeio\PolydockAppDependencyTrack\Traits\Create\PreCreateAppInstanceTrait;
 use Filament\Forms;
@@ -22,6 +23,7 @@ class PolydockDependencyTrackApp extends GenericPolydockApp implements HasAppIns
 {
     use PreCreateAppInstanceTrait;
     use PostCreateAppInstanceTrait;
+    use ClaimAppInstanceTrait;
 
     public static string $version = '0.1.0';
 

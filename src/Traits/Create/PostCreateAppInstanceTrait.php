@@ -85,25 +85,17 @@ trait PostCreateAppInstanceTrait
             }
 
             $this->info("$functionName: determined API Endpoint: $apiEndpoint", $logContext);
+            $appInstance->storeKeyValue('app-api-endpoint', $apiEndpoint);
 
-            // TODO: Execute CLI script inside the environment to get the API Key (TODO)
-            $apiKey = 'odt_TODO_REPLACE_ME_VIA_CLI_SCRIPT';
-            $this->info("$functionName: generated API Key using CLI Script (TODO implementation)", $logContext);
-
-            // Now we inject into target Organisation or Project
+            // Now we inject into target Organisation if configured
             $lagoonOrgName = $appInstance->getKeyValue('lagoon_organisation');
 
-            if (!empty($lagoonOrgId)) {
-                $this->info("$functionName: Injecting LAGOON_FEATURE_FLAG_INSIGHTS_DEPENDENCY_TRACK_API variables into Lagoon Organisation", $logContext);
+            if ($lagoonOrgName) {
+                $this->info("$functionName: Injecting LAGOON_FEATURE_FLAG_INSIGHTS_DEPENDENCY_TRACK_API_ENDPOINT into Lagoon Organisation", $logContext);
                 $this->lagoonClient->addOrUpdateGlobalVariableForOrganization(
                     $lagoonOrgName,
                     'LAGOON_FEATURE_FLAG_INSIGHTS_DEPENDENCY_TRACK_API_ENDPOINT',
                     $apiEndpoint
-                );
-                $this->lagoonClient->addOrUpdateGlobalVariableForOrganization(
-                    $lagoonOrgName,
-                    'LAGOON_FEATURE_FLAG_INSIGHTS_DEPENDENCY_TRACK_API_KEY',
-                    $apiKey
                 );
             }
 
