@@ -87,13 +87,17 @@ trait PostCreateAppInstanceTrait
             $this->info("$functionName: determined API Endpoint: $apiEndpoint", $logContext);
 
             // TODO: Execute CLI script inside the environment to get the API Key (TODO)
-            $apiKey = 'odt_TODO_REPLACE_ME_VIA_CLI_SCRIPT';
-            $this->info("$functionName: generated API Key using CLI Script (TODO implementation)", $logContext);
+            $apiKey = $appInstance->getKeyValue('app-admin-api-key');
+            if (empty($apiKey)) {
+                throw new \Exception('Missing Dependency-Track API key on app instance. Claim must run before post-create can publish organization variables.');
+            }
+
+            $this->info("$functionName: using API Key captured during claim", $logContext);
 
             // Now we inject into target Organisation or Project
             $lagoonOrgName = $appInstance->getKeyValue('lagoon_organisation');
 
-            if (!empty($lagoonOrgId)) {
+            if (! empty($lagoonOrgName)) {
                 $this->info("$functionName: Injecting LAGOON_FEATURE_FLAG_INSIGHTS_DEPENDENCY_TRACK_API variables into Lagoon Organisation", $logContext);
                 $this->lagoonClient->addOrUpdateGlobalVariableForOrganization(
                     $lagoonOrgName,

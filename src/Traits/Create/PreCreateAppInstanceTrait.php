@@ -41,7 +41,7 @@ trait PreCreateAppInstanceTrait
         $lagoonOrgName = $appInstance->getKeyValue('lagoon_organisation');
 
         try {
-            if (!empty($lagoonOrgId)) {
+            if (! empty($lagoonOrgName)) {
                 $this->info("$functionName: Found Lagoon Organisation setting, injecting variable LAGOON_FEATURE_FLAG_INSIGHTS.", $logContext);
                 $this->lagoonClient->addOrUpdateGlobalVariableForOrganization(
                     $lagoonOrgName,
